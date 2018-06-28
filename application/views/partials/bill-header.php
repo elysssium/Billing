@@ -34,9 +34,9 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col" style="background: #2779db;">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
+            <div class="navbar nav_title" style="border: 0; background: #2779db; ">
               <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Dashboard</span></a>
             </div>
 
@@ -64,7 +64,7 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="#">Dashboard</a></li>
-                      <li><a href="form_upload.html">Folder Upload</a></li>
+                      <li><a href="<?php echo base_url();?>index.php/user/details-bill">Folder Upload</a></li>
                      
                     </ul>
                   </li>
@@ -96,7 +96,7 @@
 
         <!-- top navigation -->
         <div class="top_nav">
-          <div class="nav_menu">
+          <div class="nav_menu" style="background-color: #1e0b07; ">
             <nav>
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
