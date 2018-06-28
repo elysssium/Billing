@@ -11,7 +11,7 @@
                     <div class="x_content col-sm-offset-4  col-md-offset-5
                     col-xs-offset-4">
                     <button type="button" class="btn btn-primary" style="margin-bottom: 20px; "><i class="fa fa-folder" aria-hidden="true"></i>
-Upload Folder </button>
+Upload  </button>
                   </div>
   
                 <div class="row x_title">

@@ -63,8 +63,8 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Dashboard</a></li>
-                      <li><a href="<?php echo base_url();?>index.php/user/details-bill">Folder Upload</a></li>
+                      <li><a href="<?php echo base_url();?>index.php/user/dashboard">Dashboard</a></li>
+                      <li><a href="<?php echo base_url();?>index.php/user/details-bill"> Upload</a></li>
                      
                     </ul>
                   </li>
