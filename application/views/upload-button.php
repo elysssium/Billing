@@ -11,14 +11,15 @@
             <div class="row">
               <div class="col-md-6 col-md-offset-2 col-xs-12 col-xs-offset-4">
             
-                    <button type="button" class="btn btn-primary" style="margin-bottom: 20px; "><i class="fa fa-folder" aria-hidden="true"></i>
+                    <button type="button" class="btn btn-primary" style="margin-bottom: 20px; " id="s_photo"><i class="fa fa-folder" aria-hidden="true" ></i>
 Select Files </button>
-<input type="file" id="user-image" name="user-image[]" multiple >
+<input type="file" id="user-image" name="user-image[]" multiple style="display:none;">
             </div>
             <div class="col-md-4 col-md-offset-0 col-xs-12 col-xs-offset-4">
             
                     
                     <button type="button" class="btn btn-primary" style="margin-bottom: 20px; "><i class="fa fa-folder" aria-hidden="true"></i>
+                        <input type="submit" id="sub_btn" style="display:none;">
 Upload Files  </button>
                   
             </div>
@@ -67,6 +68,19 @@ Upload Files  </button>
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url();?>assets/build/js/custom.min.js"></script>
+    <script type="text/javascript">
+        $("#s_photo").click(function(){
+            $("#user-image").trigger("click");
+        });
+        $("input[type=file]").change(function(){
+        $("input").remove(".count");
+         var files = $(this)[0].files;
+        var k=files.length;
+        var row = "<input type='hidden' name='count' class='count' value='"+k+"'>";
+                            $('.form1').append(row);
+                            $("#sub_btn").trigger("click");
+    });
+    </script>
 	
   </body>
 </html>
