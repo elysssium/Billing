@@ -50,6 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['user/dashboard'] = 'BillingController/dashboardUser';
+$route['Billing'] = 'bill/showBill';
+$route['upload'] = 'bill/uploadPhotoAction';
 $route['user/upload'] = 'BillingController/uploadBill';
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
