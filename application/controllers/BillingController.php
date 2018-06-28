@@ -8,6 +8,6 @@
 	}
 	public function uploadBill(){
 		$this->load->view('partials/bill-header');
-		$this->load->view('upload-bill');
+		$this->load->view('upload-button');
 	}
 }
