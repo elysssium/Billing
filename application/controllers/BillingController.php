@@ -22,8 +22,8 @@
 				for($i = 0; $i < $count; $i++)
 				{
 					
-					var_dump($i);
-					var_dump(realpath('./assets/'));
+			
+					
 					 $_FILES['file']['name']     = $_FILES['user-image']['name'][$i];
 	                $_FILES['file']['type']     = $_FILES['user-image']['type'][$i];
 	                $_FILES['file']['tmp_name'] = $_FILES['user-image']['tmp_name'][$i];
