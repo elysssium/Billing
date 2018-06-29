@@ -13,7 +13,7 @@
             
                     <button type="button" class="btn btn-primary" style="margin-bottom: 20px; " id="s_photo"><i class="fa fa-folder" aria-hidden="true" ></i>
 Select Files To Upload</button>
-<input type="file" id="user-image" name="user-image[]" multiple style="display:none;" accept=".jpg,.png,.tiff">
+<input type="file" id="user-image" name="user-image[]" multiple style="display:none;" webkitdirectory mozdirectory accept=".jpg,.png,.tiff">
             </div>
            
             
