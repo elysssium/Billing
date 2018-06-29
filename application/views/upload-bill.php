@@ -5,9 +5,9 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="example-wrap">
                   <div class="example">
-                    <h5>Animated</h5>
+                    <h5 id="processing_files"></h5>
                     <div class="progress">
-                      <div class="progress-bar progress-bar-striped active" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 0%" role="progressbar" id="myBar">
+                      <div class="progress-bar progress-bar-striped active" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 0.1%" role="progressbar" id="myBar">
                         <span class="sr-only">90% Complete</span>
                       </div>
                     </div>
@@ -97,6 +97,8 @@
          }).progress(function(result) 
          {
           var str2="recognizing text";
+          var process_results="Processing File "+m+" of "+n+".";
+          document.getElementById("processing_files").innerHTML = process_results;
           if(result['status'].localeCompare(str2)==0)
           {
               var elem = document.getElementById("myBar");
