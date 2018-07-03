@@ -72,7 +72,7 @@
     var count="<?php echo $count; ?>";
       for(var i=0;i<count;i++)
       {
-        var url = 'http://localhost:8081/Billing/assets/'+st[i];
+        var url = 'http://localhost:8081/Billing/assets/upload_images/'+st[i];
                 if(i==0)
         {
           runOCR(url,i+1,count,0);

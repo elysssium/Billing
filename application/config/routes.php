@@ -52,7 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['user/dashboard'] = 'BillingController/dashboardUser';
 
 $route['user/details-bill'] = 'BillingController/uploadBill';
-
+$route['user/login'] = 'BillingController/login';
+$route['user/logout'] = 'BillingController/doLogout';
 $route['Billing'] = 'bill/showBill';
 $route['upload'] = 'bill/uploadPhotoAction';
 
