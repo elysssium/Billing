@@ -9,21 +9,20 @@
             <form role="form" action="" method="POST" enctype="multipart/form-data" class="form1">
               <input type="hidden" name="count" class="count" value="0">
             <div class="row">
-              <div class="col-md-6 col-md-offset-2 col-xs-12 col-xs-offset-4">
+              <div class="col-md-6 col-md-offset-5 col-xs-12 col-xs-offset-4">
             
                     <button type="button" class="btn btn-primary" style="margin-bottom: 20px; " id="s_photo"><i class="fa fa-folder" aria-hidden="true" ></i>
-Select Files </button>
-<input type="file" id="user-image" name="user-image[]" multiple style="display:none;">
+Select Files To Upload</button>
+<input type="file" id="user-image" name="user-image[]" multiple style="display:none;" webkitdirectory mozdirectory accept=".jpg,.png,.tiff">
             </div>
-            <div class="col-md-4 col-md-offset-0 col-xs-12 col-xs-offset-4">
+           
             
                     
-                    <button type="button" class="btn btn-primary" style="margin-bottom: 20px; "><i class="fa fa-folder" aria-hidden="true"></i>
+                    
                         <input type="submit" id="sub_btn" style="display:none;">
-Upload Files  </button>
                   
-            </div>
-            </div>
+
+           
           </form>
         </div>
         <!-- /page content -->
