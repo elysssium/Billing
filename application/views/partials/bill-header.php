@@ -58,7 +58,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>Amal</h2>
+                <h2><?php echo $name; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -74,6 +74,7 @@
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>index.php/user/dashboard">Dashboard</a></li>
                       <li><a href="<?php echo base_url();?>index.php/user/details-bill"> Upload</a></li>
+                      <li><a href="<?php echo base_url();?>index.php/user/template"> Add Template</a></li>
                      
                     </ul>
                   </li>
@@ -114,7 +115,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo base_url();?>assets/images/img.jpg" alt="profile image">Sreyas
+                    <img src="<?php echo base_url();?>assets/images/img.jpg" alt="profile image"><?php echo $name; ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

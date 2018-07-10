@@ -64,35 +64,99 @@
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url();?>assets/build/js/custom.min.js"></script>
 	<script type="text/javascript">
+    <?php
+          function templateDistance($url1,$url2)
+          {
+            
+ 
+            /* Get hash string from image*/
+            $image1 = $url1;
+            $compareMachine = new compareImages($image1);
+            $image1Hash = $compareMachine->getHasString(); 
+
+            /* Compare this image with an other image*/
+            $image2 = $url2;
+            //$diff = $compareMachine->compareWith($image2); //easy
+            $image2Hash = $compareMachine->hasStringImage($image2); 
+            $diff = $compareMachine->compareHash($image2Hash); 
+            return $diff;
+          }
+          function selectTemplate($file_name,$templatesResult)
+          {
+            $i=0;
+            $template_distance=100;
+            $file_url=base_url()."assets/upload_images/".$file_name;
+            foreach($templatesResult as $row)
+            {
+              $template_url=base_url()."assets/upload_templates/".$row->src;
+              $distance=templateDistance($template_url,$file_url);
+              if($i==0 || $template_distance>$distance)
+              {
+                $template_distance=$distance;
+                $file_details['src']=$row->src;
+                $file_details['templateName']=$row->templateName;
+                $file_details['templateId']=$row->templateId;
+
+              }
+              $i++;
+            }
+            return $file_details;
+          }
+      ?>
   $(document).ready(function(){
    var st = new Array();
+   var template_name = new Array();
+   var template_id = new Array();
+   <?php include('./assets/compareImages.php'); ?>
     <?php foreach($url as $key => $val){ ?>
+      <?php 
+              
+              $template_details=selectTemplate($val,$templatesResult);
+       ?>
+        template_name.push('<?php echo $template_details['templateName']; ?>');
+        alert(template_name[0]);
+        template_id.push('<?php echo $template_details['templateId']; ?>');
         st.push('<?php echo $val; ?>');
     <?php } ?>
     var count="<?php echo $count; ?>";
       for(var i=0;i<count;i++)
       {
         var url = 'http://localhost:8081/Billing/assets/upload_images/'+st[i];
-                if(i==0)
+        alert(template_name[i]);
+        if(i==0)
         {
-          runOCR(url,i+1,count,0);
+          runOCR(url,i+1,count,0,template_name[i]);
           
         }
         else
         {
           var wid=(i/count)*100;
-          runOCR(url,i+1,count,wid);
+          runOCR(url,i+1,count,wid,template_name[i]);
         }
         
 
       }
 });
-  function runOCR(url,m,n,wid) {
+  function runOCR(url,m,n,wid,nameTemplate) {
     
     Tesseract.recognize(url)
          .then(function(result) {
-          var row1="<div class='row x_title'><div class='col-md-6 col-sm-6 col-xs-6' style='overflow: hidden;'><div><img src='"+url+"' alt='bill image' style='width: 600px ;height:500px;'></div></div><div class='col-md-6 col-sm-6 col-xs-6'><div class='x_panel'><div class='x_title'><div class='clearfix'></div></div><div class='x_content'><br><form class='form-horizontal form-label-left input_mask'><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Invoice</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text' value=''></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Address</label><div class='col-md-9 col-sm-9 col-xs-12'><textarea class='form-control' rows='5' id='comment'></textarea></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Reference</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Dated</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Grand Total</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Amount In Words</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text'></div></div><div class='ln_solid'></div><div class='form-group'><div class='col-md-9 col-sm-9 col-xs-12 col-md-offset-3'><button type='submit' class='btn btn-success'>Submit</button></div></div></form></div></div></div></div>";
+          var row1="<div class='row x_title'><div class='col-md-6 col-sm-6 col-xs-6' style='overflow: hidden;'><div><img src='"+url+"' alt='bill image' style='width: 600px ;height:500px;'></div></div><div class='col-md-6 col-sm-6 col-xs-6'><div class='x_panel'><div class='x_title'><div class='clearfix'></div></div><div class='x_content'><br><form class='form-horizontal form-label-left input_mask'><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Invoice</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text' value=''></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Address</label><div class='col-md-9 col-sm-9 col-xs-12'><textarea class='form-control' rows='5' id='comment'></textarea></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Template Name</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+nameTemplate+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Dated</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Grand Total</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Amount In Words</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text'></div></div><div class='ln_solid'></div><div class='form-group'><div class='col-md-9 col-sm-9 col-xs-12 col-md-offset-3'><button type='submit' class='btn btn-success'>Submit</button></div></div></form></div></div></div></div>";
             var row = "<div>"+result.text+"</div>";
+            var text_result=result.text;
+            $.ajax({
+                type : "POST",
+                url : "<?php echo base_url();?>/index.php/user/get-json",
+                data : {text_result:text_result},
+                dataType: 'json',
+                success : function(response) {
+                    
+                
+                },
+                error: function() { 
+                    alert("Something went wrong");
+                }
+            });
             $('#ocr_results').append(row1);
          }).progress(function(result) 
          {
