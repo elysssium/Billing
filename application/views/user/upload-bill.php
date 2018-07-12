@@ -114,7 +114,6 @@
               $template_details=selectTemplate($val,$templatesResult);
        ?>
         template_name.push('<?php echo $template_details['templateName']; ?>');
-        alert(template_name[0]);
         template_id.push('<?php echo $template_details['templateId']; ?>');
         st.push('<?php echo $val; ?>');
     <?php } ?>
@@ -122,42 +121,46 @@
       for(var i=0;i<count;i++)
       {
         var url = 'http://localhost:8081/Billing/assets/upload_images/'+st[i];
-        alert(template_name[i]);
+        
         if(i==0)
         {
-          runOCR(url,i+1,count,0,template_name[i]);
+          runOCR(url,i+1,count,0,template_name[i],template_id[i]);
           
         }
         else
         {
           var wid=(i/count)*100;
-          runOCR(url,i+1,count,wid,template_name[i]);
+          runOCR(url,i+1,count,wid,template_name[i],template_id[i]);
         }
         
 
       }
 });
-  function runOCR(url,m,n,wid,nameTemplate) {
+  function runOCR(url,m,n,wid,nameTemplate,templateId) {
     
     Tesseract.recognize(url)
          .then(function(result) {
-          var row1="<div class='row x_title'><div class='col-md-6 col-sm-6 col-xs-6' style='overflow: hidden;'><div><img src='"+url+"' alt='bill image' style='width: 600px ;height:500px;'></div></div><div class='col-md-6 col-sm-6 col-xs-6'><div class='x_panel'><div class='x_title'><div class='clearfix'></div></div><div class='x_content'><br><form class='form-horizontal form-label-left input_mask'><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Invoice</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text' value=''></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Address</label><div class='col-md-9 col-sm-9 col-xs-12'><textarea class='form-control' rows='5' id='comment'></textarea></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Template Name</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+nameTemplate+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Dated</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Grand Total</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Amount In Words</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text'></div></div><div class='ln_solid'></div><div class='form-group'><div class='col-md-9 col-sm-9 col-xs-12 col-md-offset-3'><button type='submit' class='btn btn-success'>Submit</button></div></div></form></div></div></div></div>";
-            var row = "<div>"+result.text+"</div>";
             var text_result=result.text;
             $.ajax({
                 type : "POST",
                 url : "<?php echo base_url();?>/index.php/user/get-json",
-                data : {text_result:text_result},
+                data : {text_result:text_result,template:templateId},
                 dataType: 'json',
                 success : function(response) {
-                    
-                
+
+                        
+                        if (templateId === "2") 
+                        {
+                            var row1="<div class='row x_title'><div class='col-md-6 col-sm-6 col-xs-6' style='overflow: hidden;'><div><img src='"+url+"' alt='bill image' style='width: 600px ;height:500px;'></div></div><div class='col-md-6 col-sm-6 col-xs-6'><div class='x_panel'><div class='x_title'><div class='clearfix'></div></div><div class='x_content'><br><form class='form-horizontal form-label-left input_mask'><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Title</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text' value='"+response.title_bill+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>Template Name</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text' value='"+nameTemplate+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>TERMINAL</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+response.TERMINAL +"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>SEQUENCE</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+response.SEQUNCE +"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>CARD NUMBER</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+response.CARDNUMBER+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>CUSTOMER NAME</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+response.CUSTOMERNAME+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>REQUSTED AMOUNT</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+response.REQUSTEDAMOUNT+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>TERMINAL FEE</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+response.TERMINALFEE+"'></div></div><div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>TOTAL AMOUNT</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control'   type='text' value='"+response.TOTALAMOUNT+"'></div></div></div><div class='ln_solid'></div><div class='form-group'><div class='col-md-9 col-sm-9 col-xs-12 col-md-offset-3'><button type='submit' class='btn btn-success'>Submit</button></div></div></form></div></div></div></div>";
+                            $('#ocr_results').append(row1);
+                        }
+
                 },
                 error: function() { 
                     alert("Something went wrong");
                 }
             });
-            $('#ocr_results').append(row1);
+            
          }).progress(function(result) 
          {
           var str2="recognizing text";
