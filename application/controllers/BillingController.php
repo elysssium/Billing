@@ -141,20 +141,109 @@
 	    if ($this->input->post() && $this->input->is_ajax_request()) 
 	    {
 	      $text_result = $this->input->post('text_result');
-	      	$data="";
+	      $templateId = $this->input->post('template');
 	     	$data1=explode("\n",$text_result);
 	     	$data_count=count($data1);
-	     	for($i=0;$i<$data_count;$i++)
+	     	if($templateId=='2')
 	     	{
-	     		if(strpos($data1[$i],"#")>0)
-	     		{
-	     			$data1['result']=explode("#",$data1[$i]);
-	     			$vaar=$data1['result'][0];
-	     			$data[$vaar]=$data1['result'][1];
+	     		$data2['title_bill']=$data1[0];
+	     		for ($i=1; $i < $data_count; $i++) 
+	     		{ 
+	     			if (strpos($data1[$i], '#') !== false) 
+	     			{
+    					$data=explode("#",$data1[$i]);
+    					$data[0]=trim($data[0]);
+		     			$data2[$data[0]]=$data[1];
+					}
+					else
+					{
+						$data=explode(" ",$data1[$i]);
+						$new_count=count($data);
+						if($new_count==3)
+						{
+							$data2[$data[0].$data[1]]=$data[2];
+						}
+						elseif ($new_count==4) 
+						{
+							$data2[$data[0].$data[1]]=$data[2]." ".$data[3];
+						}
+						else
+						{
+
+						}
+		     			
+					}
 	     		}
+	     		
+		        echo json_encode($data2);
+	     	}
+	     	elseif ($templateId=='1')
+	     	{
+	     		$data4["key"][0]="TITLE";
+	     		$data4["valu"][0]=$data1[4];
+	     		for ($i=1,$k=1; $i < $data_count; $i++) 
+	     		{
+	     			 if (strpos($data1[$i], 'CIN NO') !== false) 
+	     			{
+    					$data=explode("CIN NO",$data1[$i]);
+    					$data[0]=trim($data[0]);
+		     			$data4["key"][$k]='CIN_NO';
+		     			$data4["valu"][$k]=$data[1];
+		     			$k++;
+					}
+					else if(strpos($data1[$i], ':') !== false)
+					{
+						$data=explode(":",$data1[$i]);
+						$new_count=count($data);
+						for ($j=0; $j < $new_count; $j++)
+						{
+							$data[$j]=trim($data[$j]);
+						}
+						
+						if($new_count==3)
+						{
+							if (strpos($data[1], ' ') !== false) 
+							{
+								$data3=explode(" ",$data[1]);
+								$data4["key"][$k]=$data[0];
+								$data4["valu"][$k]=$data3[0];
+								$k++;
+								$data4["key"][$k]=$data3[1];
+								$data4["valu"][$k]=$data[2];
+								$k++;
+							}
+							
+						}
+						if($new_count==4)
+						{
+							$data[1]=trim($data[1]);
+							if (strpos($data[1], ' ') !== false) 
+							{
+								$data3=explode(" ",$data[1]);
+								$data4["key"][$k]=$data[0];
+								$data4["valu"][$k]=$data3[0];
+								$k++;
+								$data4["key"][$k]=$data3[1].$data3[2];
+								$data4["valu"][$k]=$data[3];
+								$k++;
+							}
+							
+						}
+					}
+					else
+					{
+
+					}
+	     		}
+	     		$data4['count']=$k;
+	     		echo json_encode($data4);
 
 	     	}
-	        echo json_encode($data);
+	     	else
+	     	{
+	     		echo json_encode($data1);
+	     	}
+	     	
 	    } 
 	    else 
 	    {
