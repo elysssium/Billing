@@ -177,6 +177,68 @@
 	     		
 		        echo json_encode($data2);
 	     	}
+	     	elseif ($templateId=='1')
+	     	{
+	     		$data4["key"][0]="TITLE";
+	     		$data4["valu"][0]=$data1[4];
+	     		for ($i=1,$k=1; $i < $data_count; $i++) 
+	     		{
+	     			 if (strpos($data1[$i], 'CIN NO') !== false) 
+	     			{
+    					$data=explode("CIN NO",$data1[$i]);
+    					$data[0]=trim($data[0]);
+		     			$data4["key"][$k]='CIN_NO';
+		     			$data4["valu"][$k]=$data[1];
+		     			$k++;
+					}
+					else if(strpos($data1[$i], ':') !== false)
+					{
+						$data=explode(":",$data1[$i]);
+						$new_count=count($data);
+						for ($j=0; $j < $new_count; $j++)
+						{
+							$data[$j]=trim($data[$j]);
+						}
+						
+						if($new_count==3)
+						{
+							if (strpos($data[1], ' ') !== false) 
+							{
+								$data3=explode(" ",$data[1]);
+								$data4["key"][$k]=$data[0];
+								$data4["valu"][$k]=$data3[0];
+								$k++;
+								$data4["key"][$k]=$data3[1];
+								$data4["valu"][$k]=$data[2];
+								$k++;
+							}
+							
+						}
+						if($new_count==4)
+						{
+							$data[1]=trim($data[1]);
+							if (strpos($data[1], ' ') !== false) 
+							{
+								$data3=explode(" ",$data[1]);
+								$data4["key"][$k]=$data[0];
+								$data4["valu"][$k]=$data3[0];
+								$k++;
+								$data4["key"][$k]=$data3[1].$data3[2];
+								$data4["valu"][$k]=$data[3];
+								$k++;
+							}
+							
+						}
+					}
+					else
+					{
+
+					}
+	     		}
+	     		$data4['count']=$k;
+	     		echo json_encode($data4);
+
+	     	}
 	     	else
 	     	{
 	     		echo json_encode($data1);
