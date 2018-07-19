@@ -27,6 +27,24 @@ Select Files To Upload</button>
         </div>
         <!-- /page content -->
 
+         <!-- For drop down -->
+         <div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h2> Multiple Image upload using dropzone.js</h2>
+
+            <form action=<?php echo base_url();?>user/dragdetails-bill" enctype="multipart/form-data" class="dropzone" id="image-upload" method="POST" name="user-image[]">
+                <div>
+                    <h3>Upload Multiple Image By Click On Box</h3>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <!-- jQuery -->
     <script src="<?php echo base_url();?>assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -79,7 +97,11 @@ Select Files To Upload</button>
                             $('.form1').append(row);
                             $("#sub_btn").trigger("click");
     });
+          Dropzone.options.imageUpload = {
+        maxFilesize:1,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif,.tif"
+
+    };
     </script>
-	
   </body>
 </html>

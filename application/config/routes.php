@@ -57,7 +57,7 @@ $route['user/login'] = 'BillingController/login';
 $route['user/logout'] = 'BillingController/doLogout';
 $route['Billing'] = 'bill/showBill';
 $route['upload'] = 'bill/uploadPhotoAction';
-
+$route['user/dragdetails-bill'] = 'BillingController/draguploadBill';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
