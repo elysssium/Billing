@@ -141,6 +141,8 @@
     Tesseract.recognize(url)
          .then(function(result) {
             var text_result=result.text;
+            alert(text_result);
+            
             $.ajax({
                 type : "POST",
                 url : "<?php echo base_url();?>/index.php/user/get-json",
