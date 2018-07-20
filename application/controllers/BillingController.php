@@ -138,9 +138,11 @@
 	}
 	public function sendJson()
   	{
+
 	    if ($this->input->post() && $this->input->is_ajax_request()) 
 	    {
 	      $text_result = $this->input->post('text_result');
+	      
 	      $templateId = $this->input->post('template');
 	     	$data1=explode("\n",$text_result);
 	     	$data_count=count($data1);
@@ -179,6 +181,7 @@
 	     	}
 	     	elseif ($templateId=='1')
 	     	{
+	     		$data4['table']['psnt']=0;
 	     		$data4["key"][0]="TITLE";
 	     		$data4["valu"][0]=$data1[4];
 	     		for ($i=1,$k=1; $i < $data_count; $i++) 
@@ -187,6 +190,59 @@
 	     			{
     					$data=explode("CIN NO",$data1[$i]);
     					$data[0]=trim($data[0]);
+		     			$data4["key"][$k]='CIN_NO';
+		     			$data4["valu"][$k]=$data[1];
+		     			$k++;
+					}
+					 else if (strpos($data1[$i], 'S.N.') !== false || strpos($data1[$i], 'Code') !== false) 
+	     			{
+	     				$data4['table']['psnt']=1;
+	     				$data4['table']['head']['count']=7;
+	     				$data4['table']['head'][2]="Description of Goods";
+	     				$data4['table']['head'][1]="S.N.";
+	     				$data4['table']['head'][3]="HSN/SAC Code";
+	     				$data4['table']['head'][4]="Qty";
+	     				$data4['table']['head'][5]="Unit";
+	     				$data4['table']['head'][6]="Price";
+	     				$data4['table']['head'][7]="Amount";
+    					$i++;
+    					while (strpos($data1[$i], 'Declaration') !== true)
+    					{
+    						$m=1;
+    						$data=explode(" ",$data1[$i]);
+    						$new_table_count=count($data);
+    						$data[0]=trim($data[0],".");
+    						if(is_numeric($data[0]))
+    						{
+    						for ($h=0,$g=1; $h < $new_table_count;) 
+    						{ 
+    							$data[$h]=trim($data[$h]);
+    							if((is_numeric($data[$h])) && $h==0)
+    							{
+    								$data4['table']['row'][$m][$g]=$data[$h];
+    								$g++;
+    								$h++;
+    								$data4['table']['row'][$m][$g]="";
+    								while(!(is_numeric($data[$h])))
+    								{
+    									$data4['table']['row'][$m][$g]=$data4['table']['row'][$m][$g].$data[$h];
+    									var_dump($data4['table']['row'][$m][$g]);
+    									$h++;
+    								}
+
+    							}
+    							else
+    							{
+    								$data4['table']['row'][$m][$g]=$data[$h];
+    								$g++;
+    								$h++;
+    							}
+    						}
+    						$m++;
+    						
+    						}
+    						$i++;
+    					}
 		     			$data4["key"][$k]='CIN_NO';
 		     			$data4["valu"][$k]=$data[1];
 		     			$k++;
