@@ -141,7 +141,6 @@
     Tesseract.recognize(url)
          .then(function(result) {
             var text_result=result.text;
-            alert(text_result);
             
             $.ajax({
                 type : "POST",
@@ -166,8 +165,47 @@
                               var row3="<div class='form-group'><label class='control-label col-md-3 col-sm-3 col-xs-12'>"+response.key[m]+"</label><div class='col-md-9 col-sm-9 col-xs-12'><input class='form-control' type='text' value='"+response.valu[m]+"'></div></div>";
                               var row5=row5+row3;
                             }
-                            var row4="<div class='ln_solid'></div></form></div></div></div></div>";
-                            var row7=row1+row2+row5+row4;
+                            if(response.table['psnt']==1)
+                            {
+                               var rowtb1="<div class='form-group'><div class='row'><div class='col-md-12 col-sm-12 col-xs-12'><div class='table-responsive'><table class='table table-striped jambo_table bulk_action'><thead><tr class='headings'>";
+                               var rowtb2="";
+                                for(var m=1;m<response.table['head']['count'];m++)
+                                {
+                                    var rowtb22="<th class='column-title'><input type='text' value='"+response.table['head'][m]+"' class='table_classes'></th>";
+                                    var rowtb2=rowtb2+rowtb22;
+                                }
+                                 
+                                var rowtb4="</tr></thead><tbody>";
+                                var h=0;
+                                var rowtb3="";
+                                for(var m=1;m<response.table['row']['count'];m++)
+                                {
+                                    h=m+2;
+                                    var rowtb333="";
+                                    if(h%2==0)
+                                      {
+                                          var rowtb3333="<tr class='even pointer'> ";
+                                      }
+                                      else
+                                      {
+                                          var rowtb3333="<tr class='odd pointer'>";
+                                      }
+                                    for(var n=1;n<response.table['head']['count'];n++)
+                                    {
+                                      var rowtb33="<td class=' '><input type='text' value='"+response.table[m][n]+"' class='table_classes'></td>";
+                                      var rowtb333=rowtb333+rowtb33;
+                                    }
+                                    var rowtb3=rowtb3+rowtb3333+rowtb333+"</tr>";
+                                }
+                                 
+                                 var rowtb5="</tbody></table></div></div></div></div>";
+                                 var row4="<div class='ln_solid'></div></form></div></div></div></div>";
+                              var row7=row1+row2+row5+rowtb1+rowtb2+rowtb4+rowtb3+rowtb5+row4;
+                            }
+                            else
+                            {
+                              var row7=row1+row2+row5+row4;
+                            }
                             $('#ocr_results').append(row7);
                         }
                         else

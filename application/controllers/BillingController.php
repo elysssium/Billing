@@ -206,9 +206,11 @@
 	     				$data4['table']['head'][6]="Price";
 	     				$data4['table']['head'][7]="Amount";
     					$i++;
-    					while (strpos($data1[$i], 'Declaration') !== true)
+    					$m=1;
+    					while((strcmp($data1[$i],"Declaration"))!==0)
     					{
-    						$m=1;
+    						
+    						
     						$data=explode(" ",$data1[$i]);
     						$new_table_count=count($data);
     						$data[0]=trim($data[0],".");
@@ -219,21 +221,22 @@
     							$data[$h]=trim($data[$h]);
     							if((is_numeric($data[$h])) && $h==0)
     							{
-    								$data4['table']['row'][$m][$g]=$data[$h];
+    								$data4['table'][$m][$g]=$data[$h];
     								$g++;
     								$h++;
-    								$data4['table']['row'][$m][$g]="";
+    								$data4['table'][$m][$g]="";
     								while(!(is_numeric($data[$h])))
     								{
-    									$data4['table']['row'][$m][$g]=$data4['table']['row'][$m][$g].$data[$h];
-    									var_dump($data4['table']['row'][$m][$g]);
+    									$data4['table'][$m][$g]=$data4['table'][$m][$g].$data[$h];
+    									
     									$h++;
     								}
+    								$g++;
 
     							}
     							else
     							{
-    								$data4['table']['row'][$m][$g]=$data[$h];
+    								$data4['table'][$m][$g]=$data[$h];
     								$g++;
     								$h++;
     							}
@@ -243,9 +246,8 @@
     						}
     						$i++;
     					}
-		     			$data4["key"][$k]='CIN_NO';
-		     			$data4["valu"][$k]=$data[1];
-		     			$k++;
+    					
+		     			$i=$data_count;
 					}
 					else if(strpos($data1[$i], ':') !== false)
 					{
@@ -292,6 +294,7 @@
 					}
 	     		}
 	     		$data4['count']=$k;
+	     		$data4['table']['row']['count']=$m;
 	     		echo json_encode($data4);
 
 	     	}
