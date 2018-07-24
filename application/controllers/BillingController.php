@@ -142,6 +142,8 @@
 	    if ($this->input->post() && $this->input->is_ajax_request()) 
 	    {
 	      $text_result = $this->input->post('text_result');
+	      $img = $this->input->post('img');
+	      $imgid=$this->BillingModel->imageid($img);
 	      
 	      $templateId = $this->input->post('template');
 	     	$data1=explode("\n",$text_result);
@@ -295,6 +297,7 @@
 	     		}
 	     		$data4['count']=$k;
 	     		$data4['table']['row']['count']=$m;
+	     		$this->BillingModel->jsonSave($data4,$imgid);
 	     		echo json_encode($data4);
 
 	     	}
@@ -347,6 +350,7 @@
 						$data['image_name']= $upload_data['file_name'];
 						$this->BillingModel->uploadUserPhoto($data);
 						$data1['url'][$i]=$data['image_name'];
+						
 					}
 				}
 				$data1['templatesResult'] =  $this->BillingModel->returnTemplates();

@@ -124,19 +124,19 @@
         
         if(i==0)
         {
-          runOCR(url,i+1,count,0,template_name[i],template_id[i]);
+          runOCR(url,i+1,count,0,template_name[i],template_id[i],st[i]);
           
         }
         else
         {
           var wid=(i/count)*100;
-          runOCR(url,i+1,count,wid,template_name[i],template_id[i]);
+          runOCR(url,i+1,count,wid,template_name[i],template_id[i],st[i]);
         }
         
 
       }
 });
-  function runOCR(url,m,n,wid,nameTemplate,templateId) {
+  function runOCR(url,m,n,wid,nameTemplate,templateId,img) {
     
     Tesseract.recognize(url)
          .then(function(result) {
@@ -145,7 +145,7 @@
             $.ajax({
                 type : "POST",
                 url : "<?php echo base_url();?>/index.php/user/get-json",
-                data : {text_result:text_result,template:templateId},
+                data : {text_result:text_result,template:templateId,img:img},
                 dataType: 'json',
                 success : function(response) {
 
