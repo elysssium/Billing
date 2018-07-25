@@ -100,6 +100,11 @@
               }
               $i++;
             }
+            if($template_distance>=30)
+            {
+                $file_details['templateName']="INVALID";
+                $file_details['templateId']="0000";
+            }
             return $file_details;
           }
       ?>

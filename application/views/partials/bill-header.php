@@ -89,6 +89,8 @@
                       <li><a href="<?php echo base_url();?>index.php/user/dashboard">Dashboard</a></li>
                       <li><a href="<?php echo base_url();?>index.php/user/details-bill"> Upload</a></li>
                       <li><a href="<?php echo base_url();?>index.php/user/template"> Add Template</a></li>
+                      <li><a href="<?php echo base_url();?>index.php/user/view-template"> View Template</a></li>
+                      <li><a href="<?php echo base_url();?>index.php/user/view-image"> View Image</a></li>
                      
                     </ul>
                   </li>

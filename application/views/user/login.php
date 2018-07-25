@@ -22,10 +22,80 @@
 
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/build/css/custom.min.css" rel="stylesheet">
+  <!-- preLoader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  
+      <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
+      <style type="text/css">
+        .load123
+        {
+          background-color: #000;
+        }
+        .load456
+        {
+          background-color: #f7f7f7;
+        }
+        
+      </style>
+  <!-- PreLoader -->
+    <script>
+
+
+var myVar;
+
+function myFunction() {
+    myVar = setTimeout(showPage, 5000);
+}
+
+function showPage() {
+   var element = document.getElementById("myDiv123");
+   element.classList.remove("load123");
+    element.classList.add("load456");
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+
   </head>
 
-  <body class="login">
-    <div>
+  <body class="login load123" id="myDiv123" onload="myFunction()" >
+<div id="loader" style="background-color: #000;"> 
+
+    <div class="loading" style="background-color: #000;">
+  <div class="finger finger-1">
+    <div class="finger-item">
+      <span></span><i></i>
+    </div>
+  </div>
+        <div class="finger finger-2">
+    <div class="finger-item">
+      <span></span><i></i>
+    </div>
+  </div>
+        <div class="finger finger-3">
+    <div class="finger-item">
+      <span></span><i></i>
+    </div>
+  </div>
+        <div class="finger finger-4">
+    <div class="finger-item">
+      <span></span><i></i>
+    </div>
+  </div>
+        <div class="last-finger">
+    <div class="last-finger-item"><i></i></div>
+  </div>
+    </div>
+
+
+
+
+</div>
+    <div style="display:none;" id="myDiv">
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
 
@@ -57,8 +127,8 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1> Intelligent Image Processing!</h1>
+                  <p>Copyright © 2018 elysium IT Services. Privacy and Terms</p>
                 </div>
               </div>
             </form>
@@ -67,19 +137,19 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
+            <form action="<?php echo base_url(); ?>index.php/Signup" method="post">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Username" required="" name="username" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="email" class="form-control" placeholder="Email" required="" name="email"/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password" required="" name="password"/>
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <input class="btn btn-default submit" style="margin-left: 115px;" type="submit" name="" value="Submit">
               </div>
 
               <div class="clearfix"></div>
@@ -93,8 +163,8 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1> Intelligent Image Processing!</h1>
+                  <p>Copyright © 2018 elysium IT Services. Privacy and Terms</p>
                 </div>
               </div>
             </form>
@@ -140,10 +210,10 @@
         					 </script>
          				";
          		}
-         		?>;
+         		?>
          
          		
-         	
+         
   </body>
  
 </html>

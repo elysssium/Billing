@@ -28,6 +28,11 @@ class BillingModel extends CI_Model
 		$this->db->set('image_id', $img);
 		$this->db->insert('json');
 	}
+	public function create($data)
+	{
+		$this->db->insert('user',$data);
+
+	}
 	public function uploadUserPhoto($data)
 	{
 		$this->db->insert('image',$data);
@@ -55,6 +60,14 @@ class BillingModel extends CI_Model
 		}
 
 	}
+	public function returnBill($id)
+	{
+			$this->db->select('*');
+			$this->db->where('user_id' , $id);
+			$query=$this->db->get('image');
+			return $query->result();
+
+	}
 	public function returnTemplates()
 	{
 			$this->db->select('id as templateId,templateName,src');
@@ -62,10 +75,11 @@ class BillingModel extends CI_Model
 			return $query->result();
 
 	}
-	public function graphMonth($mon)
+	public function graphMonth($mon,$id)
 	{
 			$this->db->select('*');
 			$this->db->where('MONTH(date)' , $mon);
+			$this->db->where('user_id' , $id);
 			$query=$this->db->get('image');
 			return $query->num_rows();
 

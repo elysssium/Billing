@@ -50,8 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['user/dashboard'] = 'BillingController/dashboardUser';
+$route['Signup'] = 'BillingController/CreateUser';
 $route['user/get-json'] = 'BillingController/sendJson';
 $route['user/details-bill'] = 'BillingController/uploadBill';
+$route['user/view-template'] = 'BillingController/viewTemplate';
+$route['user/view-image'] = 'BillingController/viewImage';
 $route['user/template'] = 'BillingController/uploadTemplate';
 $route['user/login'] = 'BillingController/login';
 $route['user/logout'] = 'BillingController/doLogout';

@@ -5,18 +5,19 @@
 	public function dashboardUser(){
 		if($this->isLoggedIn())
 		{
-			$data['graph']['1']=$this->BillingModel->graphMonth('1');
-			$data['graph']['2']=$this->BillingModel->graphMonth('02');
-			$data['graph']['3']=$this->BillingModel->graphMonth('03');
-			$data['graph']['4']=$this->BillingModel->graphMonth('04');
-			$data['graph']['5']=$this->BillingModel->graphMonth('05');
-			$data['graph']['6']=$this->BillingModel->graphMonth('06');
-			$data['graph']['7']=$this->BillingModel->graphMonth('07');
-			$data['graph']['8']=$this->BillingModel->graphMonth('08');
-			$data['graph']['9']=$this->BillingModel->graphMonth('09');
-			$data['graph']['10']=$this->BillingModel->graphMonth('10');
-			$data['graph']['11']=$this->BillingModel->graphMonth('11');
-			$data['graph']['12']=$this->BillingModel->graphMonth('12');
+			$id=$this->session->userdata('id');
+			$data['graph']['1']=$this->BillingModel->graphMonth('1',$id);
+			$data['graph']['2']=$this->BillingModel->graphMonth('02',$id);
+			$data['graph']['3']=$this->BillingModel->graphMonth('03',$id);
+			$data['graph']['4']=$this->BillingModel->graphMonth('04',$id);
+			$data['graph']['5']=$this->BillingModel->graphMonth('05',$id);
+			$data['graph']['6']=$this->BillingModel->graphMonth('06',$id);
+			$data['graph']['7']=$this->BillingModel->graphMonth('07',$id);
+			$data['graph']['8']=$this->BillingModel->graphMonth('08',$id);
+			$data['graph']['9']=$this->BillingModel->graphMonth('09',$id);
+			$data['graph']['10']=$this->BillingModel->graphMonth('10',$id);
+			$data['graph']['11']=$this->BillingModel->graphMonth('11',$id);
+			$data['graph']['12']=$this->BillingModel->graphMonth('12',$id);
 			$this->load->view('user/billing-dashboard',$data);
 		}
 		else
@@ -135,6 +136,23 @@
 			$this->load->view('user/login');
 		}
 		
+	}
+	public function CreateUser()
+  	{
+
+	    if ($this->input->post())
+	    {
+	    		 $data['name'] = $this->input->post('username');
+	    		 $data['email'] = $this->input->post('email');
+	    		 $data['password'] = $this->input->post('password');
+	    		 
+	    		 $this->BillingModel->create($data);
+	    		 redirect('user/login');
+	    }
+	    else
+	    {
+	    		redirect('user/login');
+	    }
 	}
 	public function sendJson()
   	{
@@ -426,6 +444,31 @@
 			$this->load->view('user/login');
 		}
 		
+	}
+	public function viewTemplate()
+	{
+      if($this->isLoggedIn())
+		{
+			$data1['result']=$this->BillingModel->returnTemplates();
+				$this->load->view('user/viewtemplate',$data1);
+		}
+		else
+		{
+           $this->load->view('user/login');
+		}	
+	}
+	public function viewImage()
+	{
+      if($this->isLoggedIn())
+		{
+			$id=$this->session->userdata('id');
+			$data1['result']=$this->BillingModel->returnBill($id);
+				$this->load->view('user/viewBill',$data1);
+		}
+		else
+		{
+           $this->load->view('user/login');
+		}	
 	}
 
 }
